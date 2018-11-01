@@ -71,6 +71,7 @@ module.exports = {
       fingerprint: this.app.options.fingerprint.enabled,
       plugins,
       rootURL: this._getRootURL(),
+      scopeURL: this._getScopeURL(),
       sourcemaps: this.app.options.sourcemaps,
       registrationDistPath: options.registrationDistPath
     });
@@ -144,6 +145,18 @@ module.exports = {
     let rootURL = options.rootUrl || config.rootURL || config.baseURL || '/';
 
     return this._projectRootURL = rootURL;
+  },
+
+  _getScopeURL() {
+    if (this._projectScopeURL) {
+      return this._projectScopeURL;
+    }
+
+    let options = this._getOptions();
+    let config = this._getConfig();
+    let scopeURL = options.scopeUrl || config.scopeURL;
+
+    return this._projectRootScopeURL = scopeURL;
   },
 
   _getOptions() {
